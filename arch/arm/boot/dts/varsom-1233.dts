@@ -1,0 +1,11 @@
+/dts-v1/;
+
+#define WIFI
+#define EMMC
+
+#include "varsom-1316.dtsi"
+
+/ {
+	model = "DataSoft Sidebridge Universal";
+};
+
