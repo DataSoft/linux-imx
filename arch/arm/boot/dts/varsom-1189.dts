@@ -1,0 +1,94 @@
+/dts-v1/;
+
+#include "varsom-1316.dtsi"
+
+/ {
+	model = "DataSoft Radio Access Point (RAP)";
+	compatible = "fsl,imx6ull-var-dart", "fsl,imx6ull";
+
+	rfmute {
+		compatible = "gpio-leds";
+		pinctrl-names = "default";
+		pinctrl-0 = <&pinctrl_rfmute>;
+		red {
+			gpios = <&gpio4 11 GPIO_ACTIVE_LOW>;
+			default-state = "on";
+		};
+		green {
+			gpios = <&gpio4 16 GPIO_ACTIVE_LOW>;
+			default-state = "on";
+		};
+		blue {
+			gpios = <&gpio4 14 GPIO_ACTIVE_LOW>;
+			default-state = "off";
+		};
+	};
+};
+
+&iomuxc_snvs {
+	pinctrl-names = "default_snvs";
+	pinctrl-0 = <&pinctrl_hog_2>;
+	varsom-1189 {
+		pinctrl_hog_2: hoggrp-2 {
+			fsl,pins = <
+				MX6ULL_PAD_SNVS_TAMPER0__GPIO5_IO00	0x1b0b0
+				MX6ULL_PAD_SNVS_TAMPER4__GPIO5_IO04	0x1b0b0	/* BT Enable */
+				MX6ULL_PAD_SNVS_TAMPER6__GPIO5_IO06	0x03029	/* WLAN enable */
+			>;
+		};
+
+		pinctrl_rtc: rtcgrp {
+			fsl,pins = <
+				MX6ULL_PAD_SNVS_TAMPER7__GPIO5_IO07	0x1b0b0 /* RTC alarm IRQ */
+			>;
+		};
+
+		pinctrl_spi1: spi1grp {
+			fsl,pins = <
+				MX6UL_PAD_LCD_DATA20__ECSPI1_SCLK	0x1b0b1
+				MX6UL_PAD_LCD_DATA21__ECSPI1_SS0	0x1b0b0
+				MX6UL_PAD_LCD_DATA22__ECSPI1_MOSI	0x1b0b1
+				MX6UL_PAD_LCD_DATA23__ECSPI1_MISO	0x1b0b1
+			>;
+		};
+
+		pinctrl_cpld: cpldgrp {
+			fsl,pins = <
+				MX6UL_PAD_CSI_DATA03__GPIO4_IO24	0x0b0b0	/* GPIO_MCU_CPLD_SP0: 120 */
+				MX6UL_PAD_CSI_DATA02__GPIO4_IO23	0x0b0b0	/* GPIO_MCU_CPLD_SP1: 119*/
+				MX6UL_PAD_CSI_HSYNC__GPIO4_IO20		0x0b0b0	/* GPIO_MCU_CPLD_SP2: 116 */
+				MX6UL_PAD_SNVS_TAMPER8__GPIO5_IO08	0x0b0b0	/* GPIO_MCU_CPLD_SP3: 136 */
+				MX6UL_PAD_SNVS_TAMPER7__GPIO5_IO07	0x000b0	/* GPIO_MCU_ZEROIZE: 135 */
+				MX6UL_PAD_SNVS_TAMPER5__GPIO5_IO05	0x000b0	/* GPIO_RAP_ACTIVE: 133 */
+				MX6UL_PAD_CSI_PIXCLK__GPIO4_IO18	0x000b0	/* GPIO_MCU_CPLD_INITn: 114*/
+				MX6UL_PAD_SNVS_TAMPER3__GPIO5_IO03	0x0b0b0	/* GPIO_SRAM_STATUS: 131 */
+			>;
+		};
+
+		pinctrl_rfmute: rfmutegrp {
+			fsl,pins = <
+				MX6UL_PAD_LCD_HSYNC__GPIO3_IO02		0x0b0b0 /* GPIO_PB_RF_MUTEN: 66 */
+				MX6UL_PAD_NAND_WP_B__GPIO4_IO11		0x000b0 /* GPIO_RF_MUTE_STAT_RED_LEDN: 107 */
+				MX6UL_PAD_NAND_DQS__GPIO4_IO16		0x000b0 /* GPIO_RF_MUTE_STAT_GRN_LEDN: 112*/
+				MX6UL_PAD_NAND_CE1_B__GPIO4_IO14	0x000b0 /* GPIO_RF_MUTE_STAT_BLU_LEDN: 110*/
+			>;
+		};
+
+	};
+};
+
+&ecspi1 {
+	bus-num = <1>;
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_spi1>;
+	status = "okay";
+
+	spidev0: spi@0 {
+		compatible = "spidev";
+		pinctrl-names = "default";
+		pinctrl-0 = <&pinctrl_cpld>;
+		spi-max-frequency = <1000000>;
+		reg = <0>;
+	};
+};
+
