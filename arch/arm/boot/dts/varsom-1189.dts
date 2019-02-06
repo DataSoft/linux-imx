@@ -30,6 +30,27 @@
 			default-state = "off";
 		};
 	};
+
+	ctrlzero {
+		compatible = "gpio-leds";
+		pinctrl-names = "default";
+		pinctrl-0 = <&pinctrl_ctrl_zero>;
+		red2 {
+			label = "red2";
+			gpios = <&gpio3 21 GPIO_ACTIVE_LOW>;
+			default-state = "off";
+		};
+		green2 {
+			label = "green2";
+			gpios = <&gpio3 23 GPIO_ACTIVE_LOW>;
+			default-state = "off";
+		};
+		blue2 {
+			label = "blue2";
+			gpios = <&gpio3 22 GPIO_ACTIVE_LOW>;
+			default-state = "off";
+		};
+	};
 };
 
 &iomuxc_snvs {
@@ -91,6 +112,14 @@
 			>;
 		};
 
+		pinctrl_ctrl_zero: ctrlzerogrp {
+			fsl,pins = <
+				MX6UL_PAD_LCD_DATA19__GPIO3_IO24	0x1b0b1 /* GPIO_PB_CTRL_ZERON: 88 */
+				MX6UL_PAD_LCD_DATA16__GPIO3_IO21	0x1b0b1 /* GPIO_CTRL_ZERO_RED_LEDN: 85 */
+				MX6UL_PAD_LCD_DATA18__GPIO3_IO23	0x1b0b1 /* GPIO_CTRL_ZERO_GRN_LEDN: 87 */
+				MX6UL_PAD_LCD_DATA17__GPIO3_IO22	0x1b0b1 /* GPIO_CTRL_ZERO_BLU_LEDN: 86 */
+			>;
+		};
 	};
 };
 
