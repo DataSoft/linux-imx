@@ -115,6 +115,8 @@
 &usbotg1 {
 	dr_mode = "peripheral";
 	disable-over-current;
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_usbotg1>;
 	status = "okay";
 };
 
@@ -308,6 +310,12 @@
 			fsl,pins = <
 				MX6UL_PAD_UART5_TX_DATA__I2C2_SCL	0x4001b8b0
 				MX6UL_PAD_UART5_RX_DATA__I2C2_SDA	0x4001b8b0
+			>;
+		};
+
+		pinctrl_usbotg1: usbotg1grp {
+			fsl,pins = <
+				MX6UL_PAD_GPIO1_IO08__GPIO1_IO08	0x1b0b1 /* GPIO USB_EUD_VBUS_EN */
 			>;
 		};
 	};
