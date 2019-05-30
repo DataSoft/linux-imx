@@ -3,7 +3,7 @@
 #include "varsom-1316.dtsi"
 
 / {
-	model = "DataSoft Radio Access Point (RAP)";
+	model = "DataSoft Radio Access Point (RAP) WIFI";
 	compatible = "fsl,imx6ull-var-dart", "fsl,imx6ull";
 
 	aliases {
