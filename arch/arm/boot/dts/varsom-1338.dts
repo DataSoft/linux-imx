@@ -1,0 +1,47 @@
+/dts-v1/;
+
+#include "varsom-1316.dtsi"
+
+/ {
+	model = "DataSoft Sidebridge Universal with Button";
+	compatible = "fsl,imx6ull-var-dart", "fsl,imx6ull";
+
+	btstatus {
+		compatible = "gpio-leds";
+		pinctrl-names = "default";
+		pinctrl-0 = <&pinctrl_btctrl>;
+		btstatus-led {
+			label = "btstatus";
+			gpios = <&gpio5 5 GPIO_ACTIVE_LOW>;
+			default-state = "off";
+		};
+	};
+};
+
+&iomuxc_snvs {
+	pinctrl-names = "default_snvs";
+	pinctrl-0 = <&pinctrl_hog_2>;
+	varsom-1233 {
+		pinctrl_hog_2: hoggrp-2 {
+			fsl,pins = <
+				MX6ULL_PAD_SNVS_TAMPER0__GPIO5_IO00	0x1b0b0
+				MX6ULL_PAD_SNVS_TAMPER4__GPIO5_IO04	0x1b0b0	/* BT Enable */
+				MX6ULL_PAD_SNVS_TAMPER6__GPIO5_IO06	0x03029	/* WLAN enable */
+			>;
+		};
+
+		pinctrl_rtc: rtcgrp {
+			fsl,pins = <
+				MX6ULL_PAD_SNVS_TAMPER7__GPIO5_IO07	0x1b0b0 /* RTC alarm IRQ */
+			>;
+		};
+
+		pinctrl_btctrl: btctrl {
+			fsl,pins = <
+				MX6ULL_PAD_SNVS_TAMPER3__GPIO5_IO03	0x00b0  /* Push Button */
+				MX6ULL_PAD_SNVS_TAMPER5__GPIO5_IO05	0x00b0  /* Blue LED */
+			>;
+		};
+	};
+};
+
