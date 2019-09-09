@@ -15,7 +15,7 @@
 #include "imx6ull.dtsi"
 
 / {
-	model = "DataSoft Radio Access Point (RAP) Wired";
+	model = "DataSoft Radio Access Point (RAP) Wired WIFI DART";
 	compatible = "fsl,imx6ull-var-dart", "fsl,imx6ull";
 
 	chosen {
@@ -111,6 +111,12 @@
 			reg = <3>;
 		};
 	};
+};
+
+&uart1 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_uart1>;
+	status = "okay";
 };
 
 /* Bluetooth UART */
