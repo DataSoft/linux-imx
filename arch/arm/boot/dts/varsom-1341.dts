@@ -19,7 +19,7 @@
 	compatible = "fsl,imx6ull-var-dart", "fsl,imx6ull";
 
 	chosen {
-		stdout-path = &uart1;
+		stdout-path = &uart5;
 	};
 
 	memory {
@@ -134,6 +134,13 @@
 	uart-has-rtscts;
 	status = "okay";
 };
+
+&uart5 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_uart5>;
+	status = "okay";
+};
+
 
 &usbotg1 {
 	dr_mode = "peripheral";
