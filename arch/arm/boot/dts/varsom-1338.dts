@@ -3,7 +3,7 @@
 #include "varsom-1316.dtsi"
 
 / {
-	model = "DataSoft Sidebridge Universal with Button";
+	model = "DataSoft Sidebridge Universal with Button WIFI DART";
 	compatible = "fsl,imx6ull-var-dart", "fsl,imx6ull";
 
 	btstatus {
